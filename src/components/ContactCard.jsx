@@ -104,7 +104,7 @@ const SERVICES = [
     icon: Camera,
   },
   {
-    title: "Videomaker",
+    title: "Videomaker Mobile",
     description: "Captação, edição, reels e produção audiovisual.",
     icon: Video,
   },
