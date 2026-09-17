@@ -36,7 +36,7 @@ const SHUTTER_KEYFRAMES = `
 }
 `;
 
-const CARD_URL = "https://cartao.movamaker.com.br";
+const CARD_URL = "https://cartaomova.vercel.app";
 
 const CONTACT = {
   name: "MOVA Storymaker & Videomaker",
