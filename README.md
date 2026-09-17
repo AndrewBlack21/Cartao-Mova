@@ -1,4 +1,4 @@
-# CAN GROUP — Cartão Virtual
+# Mova StoryMaker & VideoMaker Mobile — Cartão Virtual
 
 Projeto completo em React + Vite para um cartão de visita digital responsivo.
 
