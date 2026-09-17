@@ -39,7 +39,7 @@ const SHUTTER_KEYFRAMES = `
 const CARD_URL = "https://cartaomova.vercel.app";
 
 const CONTACT = {
-  name: "MOVA Storymaker & Videomaker",
+  name: "MOVA Storymaker & Videomaker Mobile",
   org: "MOVA",
   phone: "",
   phoneDisplay: "Em breve",
@@ -100,7 +100,7 @@ const LINKS = [
 const SERVICES = [
   {
     title: "Storymaker",
-    description: "Stories, cobertura e conteúdo para redes sociais.",
+    description: "Stories e gravação edição e postagens em tempo real.",
     icon: Camera,
   },
   {
@@ -195,7 +195,7 @@ function PhysicalCard() {
             <CameraLogo className="w-10 h-10" />
             <div>
               <div className="physical-mova">MOVA</div>
-              <div className="physical-role">STORYMAKER & VIDEOMAKER</div>
+              <div className="physical-role">STORYMAKER & VIDEOMAKER MOBILE</div>
             </div>
           </div>
           <div className="physical-card-face physical-card-back">
@@ -248,12 +248,12 @@ export default function MovaVirtualCard() {
             <div className="hero-eyebrow"><Sparkles size={13} /> CONTEÚDO QUE CONECTA</div>
             <h1>Histórias que<br /><em>ganham vida.</em></h1>
             <p>
-              Storymaking e videomaking para transformar momentos, marcas e experiências em conteúdo que merece ser visto.
+              Videos e conteúdos que transformam momentos, marcas e experiências em historias que merecem ser vistas, guardadas e lembradas.
             </p>
             <div className="hero-services">
               <span><Camera size={14} /> Storymaker</span>
               <i />
-              <span><Video size={14} /> Videomaker</span>
+              <span><Video size={14} /> Videomaker Mobile</span>
             </div>
           </div>
 
@@ -265,7 +265,7 @@ export default function MovaVirtualCard() {
             <div className="profile-avatar"><CameraLogo className="w-8 h-8" /></div>
             <div>
               <div className="profile-kicker">MOVA</div>
-              <h2>Storymaker & Videomaker</h2>
+              <h2>Storymaker & Videomaker Mobile</h2>
               <p>Santos · São Paulo</p>
             </div>
           </div>
