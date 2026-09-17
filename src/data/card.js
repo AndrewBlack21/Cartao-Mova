@@ -1,6 +1,6 @@
 export const card = {
-  company: "CAN GROUP",
-  slogan: "Conectando pessoas e negócios.",
+  company: "Mova StoryMaker & VideoMaker",
+  slogan: "Histórias que ganham vida.",
   instagram: "https://www.instagram.com/movamaker/",
   instagramLabel: "@movamaker",
   whatsappNumber: "5513999999999", // troque pelo número oficial com DDI
@@ -12,6 +12,6 @@ export const card = {
 
 };
 
-export function whatsappUrl(message = "Olá! Gostaria de falar com a CAN GROUP.") {
+export function whatsappUrl(message = "Olá! Gostaria de falar com a Mova.") {
   return `https://wa.me/${card.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
