@@ -4,7 +4,7 @@ export default function BrandLogo({ light = false, compact = false }) {
       className={`brand-logo ${compact ? "brand-logo--compact" : ""} ${light ? "brand-logo--light" : ""}`}
     >
       <div className="brand-mark">
-        <span>CN</span>
+        <span>Mova</span>
       </div>
       <div>
         <div className="brand-name">Mova</div>
