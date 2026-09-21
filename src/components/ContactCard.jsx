@@ -13,6 +13,7 @@ import {
   Camera,
   Video,
   Sparkles,
+  MessageCircle,
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import jsPDF from "jspdf";
@@ -41,28 +42,75 @@ const CARD_URL = "https://cartaomova.vercel.app";
 const CONTACT = {
   name: "MOVA Storymaker & Videomaker Mobile",
   org: "MOVA",
-  phone: "",
-  phoneDisplay: "Em breve",
+  phone: "+55 13 99162-8852",
+  phoneDisplay: "(13) 99162-8852",
+  whatsappNumber: "5513991628852",
   email: "",
   site: "https://instagram.com/movamaker",
   city: "Santos",
   state: "SP",
 };
 
-function CameraLogo({ className = "w-9 h-9", color = "#2E1B13", accent = "#AD7A34" }) {
+const WHATSAPP_URL = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
+  "Olá! Gostaria de falar com a Mova."
+)}`;
+
+function CameraLogo({
+  className = "w-9 h-9",
+  color = "#2E1B13",
+  accent = "#AD7A34",
+}) {
   return (
-    <svg viewBox="0 0 100 100" className={className} fill="none" aria-hidden="true">
-      <path d="M35 22 H25 Q19 22 19 28 V38" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M65 22 H75 Q81 22 81 28 V38" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M35 78 H25 Q19 78 19 72 V62" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M65 78 H75 Q81 78 81 72 V62" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M14 54 Q40 38 62 49 T88 44" stroke={accent} strokeWidth="3.5" strokeLinecap="round" />
+    <svg
+      viewBox="0 0 100 100"
+      className={className}
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M35 22 H25 Q19 22 19 28 V38"
+        stroke={color}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M65 22 H75 Q81 22 81 28 V38"
+        stroke={color}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M35 78 H25 Q19 78 19 72 V62"
+        stroke={color}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M65 78 H75 Q81 78 81 72 V62"
+        stroke={color}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M14 54 Q40 38 62 49 T88 44"
+        stroke={accent}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
       <circle cx="88" cy="44" r="4.5" fill={accent} />
     </svg>
   );
 }
 
 const LINKS = [
+  {
+    key: "whatsapp",
+    label: "WhatsApp",
+    value: CONTACT.phoneDisplay,
+    icon: MessageCircle,
+    bg: "#25D366",
+    href: WHATSAPP_URL,
+  },
   {
     key: "instagram",
     label: "Instagram",
@@ -100,11 +148,11 @@ const LINKS = [
 const SERVICES = [
   {
     title: "Storymaker",
-    description: "Stories e gravação edição e postagens em tempo real.",
+    description: "Stories, gravação edição e postagens em tempo real.",
     icon: Camera,
   },
   {
-    title: "Videomaker Mobile",
+    title: "Videomaker",
     description: "Captação, edição, reels e produção audiovisual.",
     icon: Video,
   },
@@ -122,7 +170,9 @@ function downloadVCard() {
     `URL:${CONTACT.site}`,
     `ADR;TYPE=WORK:;;${CONTACT.city};${CONTACT.state};;Brasil`,
     "END:VCARD",
-  ].filter(Boolean).join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -151,7 +201,8 @@ async function downloadPdfCard() {
   doc.setFontSize(8);
   doc.text("Conteúdo e produção audiovisual", 8, 32);
   doc.text(`${CONTACT.city} - ${CONTACT.state}`, 8, 37);
-  doc.text("@movamaker", 8, 42);
+  doc.text(`WhatsApp ${CONTACT.phoneDisplay}`, 8, 42);
+  doc.text("@movamaker", 8, 47);
 
   const qrDataUrl = await QRCode.toDataURL(CARD_URL, {
     margin: 0,
@@ -164,11 +215,19 @@ async function downloadPdfCard() {
 function ViewToggle({ view, setView }) {
   return (
     <div className="mova-view-toggle">
-      <span className={`mova-view-indicator ${view === "fisico" ? "is-physical" : ""}`} />
-      <button className={view === "digital" ? "is-active" : ""} onClick={() => setView("digital")}>
+      <span
+        className={`mova-view-indicator ${view === "fisico" ? "is-physical" : ""}`}
+      />
+      <button
+        className={view === "digital" ? "is-active" : ""}
+        onClick={() => setView("digital")}
+      >
         <Smartphone size={14} /> Digital
       </button>
-      <button className={view === "fisico" ? "is-active" : ""} onClick={() => setView("fisico")}>
+      <button
+        className={view === "fisico" ? "is-active" : ""}
+        onClick={() => setView("fisico")}
+      >
         <CreditCard size={14} /> Cartão físico
       </button>
     </div>
@@ -189,18 +248,32 @@ function PhysicalCard() {
 
   return (
     <div className="physical-card-section">
-      <div className="physical-card-wrap" onClick={trigger} role="button" tabIndex={0} onKeyDown={(event) => event.key === "Enter" && trigger()}>
+      <div
+        className="physical-card-wrap"
+        onClick={trigger}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(event) => event.key === "Enter" && trigger()}
+      >
         <div className={`physical-card ${flipped ? "is-flipped" : ""}`}>
           <div className="physical-card-face physical-card-front">
             <CameraLogo className="w-10 h-10" />
             <div>
               <div className="physical-mova">MOVA</div>
-              <div className="physical-role">STORYMAKER & VIDEOMAKER MOBILE</div>
+              <div className="physical-role">
+                STORYMAKER & VIDEOMAKER MOBILE
+              </div>
             </div>
           </div>
           <div className="physical-card-face physical-card-back">
             <div className="physical-qr">
-              <QRCodeSVG value={CARD_URL} size={88} bgColor="#F1E7DA" fgColor="#2E1B13" level="M" />
+              <QRCodeSVG
+                value={CARD_URL}
+                size={88}
+                bgColor="#F1E7DA"
+                fgColor="#2E1B13"
+                level="M"
+              />
             </div>
             <div>
               <strong>Escaneie o QR Code</strong>
@@ -208,10 +281,23 @@ function PhysicalCard() {
             </div>
           </div>
         </div>
-        {shutter && <div className="shutter-overlay" style={{ animation: "shutterIris .76s ease-in-out" }} onAnimationEnd={() => setShutter(false)} />}
+        {shutter && (
+          <div
+            className="shutter-overlay"
+            style={{ animation: "shutterIris .76s ease-in-out" }}
+            onAnimationEnd={() => setShutter(false)}
+          />
+        )}
       </div>
       <div className="physical-hint">
-        <Aperture size={14} className="gold-icon" style={spin ? { animation: "apertureSpin .76s ease-in-out" } : undefined} onAnimationEnd={() => setSpin(false)} />
+        <Aperture
+          size={14}
+          className="gold-icon"
+          style={
+            spin ? { animation: "apertureSpin .76s ease-in-out" } : undefined
+          }
+          onAnimationEnd={() => setSpin(false)}
+        />
         Toque no cartão para ver o verso
       </div>
     </div>
@@ -224,7 +310,10 @@ export default function MovaVirtualCard() {
 
   return (
     <main className="mova-page">
-      <style>{FONT_IMPORT}{SHUTTER_KEYFRAMES}</style>
+      <style>
+        {FONT_IMPORT}
+        {SHUTTER_KEYFRAMES}
+      </style>
 
       <div className="mova-shell">
         <section className="mova-hero">
@@ -245,15 +334,26 @@ export default function MovaVirtualCard() {
           </header>
 
           <div className="hero-content">
-            <div className="hero-eyebrow"><Sparkles size={13} /> CONTEÚDO QUE CONECTA</div>
-            <h1>Histórias que<br /><em>ganham vida.</em></h1>
+            <div className="hero-eyebrow">
+              <Sparkles size={13} /> CONTEÚDO QUE CONECTA
+            </div>
+            <h1>
+              Histórias que
+              <br />
+              <em>ganham vida.</em>
+            </h1>
             <p>
-              Videos e conteúdos que transformam momentos, marcas e experiências em historias que merecem ser vistas, guardadas e lembradas.
+              Videos e conteúdos que transformam momentos, marcas e experiências
+              em historias que merecem ser vistas, guardadas e lembradas.
             </p>
             <div className="hero-services">
-              <span><Camera size={14} /> Storymaker</span>
+              <span>
+                <Camera size={14} /> Storymaker
+              </span>
               <i />
-              <span><Video size={14} /> Videomaker Mobile</span>
+              <span>
+                <Video size={14} /> Videomaker Mobile
+              </span>
             </div>
           </div>
 
@@ -262,7 +362,9 @@ export default function MovaVirtualCard() {
 
         <section className="mova-content">
           <div className="profile-intro">
-            <div className="profile-avatar"><CameraLogo className="w-8 h-8" /></div>
+            <div className="profile-avatar">
+              <CameraLogo className="w-8 h-8" />
+            </div>
             <div>
               <div className="profile-kicker">MOVA</div>
               <h2>Storymaker & Videomaker Mobile</h2>
@@ -302,16 +404,29 @@ export default function MovaVirtualCard() {
 
           <div className="mova-links">
             {LINKS.map(({ key, label, value, icon: Icon, bg, href }) => (
-              <a className="mova-link" href={href} target="_blank" rel="noreferrer" key={key}>
-                <span className="link-icon" style={{ background: bg }}><Icon size={18} /></span>
-                <span className="link-copy"><small>{label}</small><strong>{value}</strong></span>
+              <a
+                className="mova-link"
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                key={key}
+              >
+                <span className="link-icon" style={{ background: bg }}>
+                  <Icon size={18} />
+                </span>
+                <span className="link-copy">
+                  <small>{label}</small>
+                  <strong>{value}</strong>
+                </span>
                 <ChevronRight size={17} className="link-arrow" />
               </a>
             ))}
           </div>
 
           <button className="save-contact" onClick={() => setShowSave(true)}>
-            <span className="save-contact-icon"><User size={18} /></span>
+            <span className="save-contact-icon">
+              <User size={18} />
+            </span>
             <span>Salvar contato</span>
             <ChevronRight size={17} />
           </button>
@@ -332,9 +447,19 @@ export default function MovaVirtualCard() {
                 <h3>Compartilhe a sua conexão.</h3>
                 <p>Mostre este QR Code para abrir o cartão digital da MOVA.</p>
               </div>
-              <div className="qr-frame"><QRCodeSVG value={CARD_URL} size={116} bgColor="#F1E7DA" fgColor="#2E1B13" level="M" /></div>
+              <div className="qr-frame">
+                <QRCodeSVG
+                  value={CARD_URL}
+                  size={116}
+                  bgColor="#F1E7DA"
+                  fgColor="#2E1B13"
+                  level="M"
+                />
+              </div>
             </div>
-          ) : <PhysicalCard />}
+          ) : (
+            <PhysicalCard />
+          )}
 
           <button className="pdf-button" onClick={downloadPdfCard}>
             <FileText size={16} /> Baixar cartão em PDF
@@ -343,21 +468,44 @@ export default function MovaVirtualCard() {
           <footer className="mova-footer">
             <span>MOVA</span>
             <span>STORYMAKER · VIDEOMAKER</span>
-            <span>{CONTACT.city} · {CONTACT.state}</span>
+            <span>
+              {CONTACT.city} · {CONTACT.state}
+            </span>
           </footer>
         </section>
       </div>
 
       {showSave && (
         <div className="save-modal-backdrop" onClick={() => setShowSave(false)}>
-          <div className="save-modal" onClick={(event) => event.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowSave(false)} aria-label="Fechar"><X size={19} /></button>
-            <div className="modal-icon"><User size={22} /></div>
+          <div
+            className="save-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              className="modal-close"
+              onClick={() => setShowSave(false)}
+              aria-label="Fechar"
+            >
+              <X size={19} />
+            </button>
+            <div className="modal-icon">
+              <User size={22} />
+            </div>
             <p className="modal-kicker">MOVA</p>
             <h3>Salvar contato</h3>
-            <p className="modal-text">Adicione a MOVA aos seus contatos para manter os canais de atendimento sempre à mão.</p>
-            <button className="modal-primary" onClick={downloadVCard}><Download size={17} /> Baixar contato</button>
-            <button className="modal-secondary" onClick={() => setShowSave(false)}>Agora não</button>
+            <p className="modal-text">
+              Adicione a MOVA aos seus contatos para manter os canais de
+              atendimento sempre à mão.
+            </p>
+            <button className="modal-primary" onClick={downloadVCard}>
+              <Download size={17} /> Baixar contato
+            </button>
+            <button
+              className="modal-secondary"
+              onClick={() => setShowSave(false)}
+            >
+              Agora não
+            </button>
           </div>
         </div>
       )}
