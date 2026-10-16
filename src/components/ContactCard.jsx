@@ -372,6 +372,19 @@ export default function MovaVirtualCard() {
             </div>
           </div>
 
+          <section className="card-video-section" aria-label="Vídeo de apresentação da Mova">
+            <div className="card-video-heading">
+              <span>CONHEÇA A MOVA</span>
+              <Video size={16} />
+            </div>
+            <video className="card-intro-video" controls playsInline preload="metadata" poster="/images/mova-video-poster.jpg">
+              <source src="/videos/mova-apresentacao.mp4" type="video/mp4" />
+              Seu navegador não suporta vídeo HTML5.
+            </video>
+            <p>Um pouco do nosso olhar, processo criativo e paixão por contar histórias.</p>
+            <small>Adicione o arquivo em public/videos/mova-apresentacao.mp4.</small>
+          </section>
+
           <div className="section-heading">
             <span>01</span>
             <div>
