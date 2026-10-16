@@ -3,19 +3,21 @@ import ContactCard from "./components/ContactCard";
 import LandingPage from "./components/LandingPage";
 import "./landing.css";
 
+function getInitialMode() {
+  if (typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches) {
+    return "card";
+  }
+  return "landing";
+}
+
 export default function App() {
-  const [mode, setMode] = useState("card");
+  const [mode, setMode] = useState(getInitialMode);
 
   return (
     <div className="mova-app">
-      <nav className="mova-mode-nav" aria-label="Alternar experiência">
-        <a className="mova-nav-brand" href="#inicio" onClick={() => setMode("landing")}>MOVA<span>STORYMAKER · VIDEOMAKER</span></a>
-        <div className="mova-mode-switch">
-          <button className={mode === "landing" ? "active" : ""} onClick={() => setMode("landing")}>Landing Page</button>
-          <button className={mode === "card" ? "active" : ""} onClick={() => setMode("card")}>Cartão Virtual</button>
-        </div>
-      </nav>
-      {mode === "landing" ? <LandingPage onOpenCard={() => setMode("card")} /> : <ContactCard />}
+      {mode === "landing"
+        ? <LandingPage onOpenCard={() => setMode("card")} />
+        : <ContactCard onOpenLanding={() => setMode("landing")} />}
     </div>
   );
 }
