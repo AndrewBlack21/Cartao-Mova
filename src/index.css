@@ -412,3 +412,9 @@ a { color: inherit; }
 .service-play-label { display:inline-flex; align-items:center; gap:5px; margin-top:12px; color:var(--mova-gold); font-size:8px; letter-spacing:.08em; text-transform:uppercase; }
 .service-card-button h4 { margin-top:22px; }
 .service-card-button .service-accent { bottom:14px; }
+
+
+/* Logo oficial e proporções consistentes */
+.mova-brand--image { min-width: 0; }
+.brand-logo-image { display:block; width:clamp(132px, 21vw, 190px); height:54px; object-fit:contain; object-position:left center; }
+@media(max-width:420px) { .brand-logo-image { width:clamp(118px, 34vw, 150px); height:44px; } }
