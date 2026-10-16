@@ -404,3 +404,11 @@ a { color: inherit; }
 .card-intro-video { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; background:#2E1B13; }
 .card-video-section p { margin:12px 0 5px; color:var(--mova-brown); font:600 21px/1.05 "Cormorant Garamond",Georgia,serif; }
 .card-video-section small { color:var(--mova-muted); font-size:8px; line-height:1.5; }
+
+
+/* Service cards are interactive portfolio entry points */
+.service-card-button { width:100%; display:block; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+.service-card-button:focus-visible, .landing-service-button:focus-visible, .mode-switch-inline:focus-visible, .landing-mode-button:focus-visible { outline:2px solid var(--mova-gold); outline-offset:3px; }
+.service-play-label { display:inline-flex; align-items:center; gap:5px; margin-top:12px; color:var(--mova-gold); font-size:8px; letter-spacing:.08em; text-transform:uppercase; }
+.service-card-button h4 { margin-top:22px; }
+.service-card-button .service-accent { bottom:14px; }
