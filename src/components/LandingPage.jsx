@@ -1,4 +1,5 @@
-import { ArrowDownRight, ArrowUpRight, Camera, Clapperboard, Instagram, Play, Video } from "lucide-react";
+import { useState } from "react";
+import { ArrowDownRight, ArrowUpRight, Camera, Clapperboard, Instagram, Play, Video, X, Scissors } from "lucide-react";
 
 const WHATSAPP = "https://wa.me/5513991628852?text=" + encodeURIComponent("Olá! Gostaria de conhecer o trabalho da Mova.");
 const VIDEO_SRC = "/videos/mova-apresentacao.mp4";
@@ -27,13 +28,15 @@ function IntroVideo({ compact = false }) {
 }
 
 export default function LandingPage({ onOpenCard }) {
+  const [activeVideo, setActiveVideo] = useState(null);
+
   return (
     <main className="mova-landing" id="inicio">
       <section className="landing-hero">
         <div className="landing-hero-texture" />
         <header className="landing-header">
           <a className="landing-logo" href="#inicio" aria-label="Mova início"><BrandMark /><span>MOVA<small>STORYMAKER & VIDEOMAKER</small></span></a>
-          <a className="landing-header-link" href="#portfolio">Explorar trabalho <ArrowDownRight size={16} /></a>
+          <div className="landing-header-actions"><a className="landing-header-link" href="#portfolio">Explorar trabalho <ArrowDownRight size={16} /></a><button className="landing-mode-button" type="button" onClick={onOpenCard}>Cartão digital <ArrowUpRight size={15} /></button></div>
         </header>
         <div className="landing-hero-content">
           <p className="landing-kicker"><span /> SANTOS · SP — CONTEÚDO EM MOVIMENTO</p>
@@ -65,9 +68,9 @@ export default function LandingPage({ onOpenCard }) {
         <div className="landing-section-label"><span>02</span> NOSSO UNIVERSO</div>
         <div className="landing-work-heading"><div><p className="landing-kicker">O QUE COLOCAMOS EM MOVIMENTO</p><h2>Ideias que viram<br /><em>experiência.</em></h2></div><p>Produção pensada para acompanhar a energia de cada projeto — com agilidade, sensibilidade e atenção ao que faz cada história ser diferente.</p></div>
         <div className="landing-services">
-          <article className="landing-service"><span>01 / AO VIVO</span><Camera size={25} /><h3>Storymaker</h3><p>Registros espontâneos, bastidores e conteúdos em tempo real para aproximar marcas e pessoas.</p></article>
-          <article className="landing-service"><span>02 / AUDIOVISUAL</span><Video size={25} /><h3>Videomaker Mobile</h3><p>Captação e edição de vídeos verticais, reels e narrativas visuais feitas para conectar.</p></article>
-          <article className="landing-service landing-service-image"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=85" alt="Câmera e equipamentos de gravação" loading="lazy" /><div><span>03 / NOSSO OLHAR</span><h3>Cada detalhe importa.</h3></div></article>
+          <button type="button" className="landing-service landing-service-button" onClick={() => setActiveVideo({ title: "Storymaker", src: "/videos/storymaker.mp4" })}><span>01 / AO VIVO</span><Camera size={25} /><h3>Storymaker</h3><p>Registros espontâneos, bastidores e conteúdos em tempo real para aproximar marcas e pessoas.</p><span className="landing-service-play"><Play size={13} fill="currentColor" /> Assistir trabalhos</span></button>
+          <button type="button" className="landing-service landing-service-button" onClick={() => setActiveVideo({ title: "Videomaker", src: "/videos/videomaker.mp4" })}><span>02 / AUDIOVISUAL</span><Video size={25} /><h3>Videomaker</h3><p>Captação, edição de vídeos verticais, reels e narrativas visuais feitas para conectar.</p><span className="landing-service-play"><Play size={13} fill="currentColor" /> Assistir trabalhos</span></button>
+          <button type="button" className="landing-service landing-service-button" onClick={() => setActiveVideo({ title: "Edição de vídeo", src: "/videos/edicao-video.mp4" })}><span>03 / PÓS-PRODUÇÃO</span><Scissors size={25} /><h3>Edição de vídeo</h3><p>Montagem, ritmo, cor e acabamento para transformar captações em histórias envolventes.</p><span className="landing-service-play"><Play size={13} fill="currentColor" /> Assistir trabalhos</span></button>
         </div>
       </section>
 
@@ -89,6 +92,20 @@ export default function LandingPage({ onOpenCard }) {
       </section>
 
       <footer className="landing-footer"><a className="landing-logo" href="#inicio"><BrandMark /><span>MOVA<small>STORYMAKER & VIDEOMAKER</small></span></a><span>SANTOS · SP</span><a href="https://instagram.com/movamaker" target="_blank" rel="noreferrer"><Instagram size={16} /> @movamaker</a><button onClick={onOpenCard}>Abrir cartão virtual <ArrowUpRight size={15} /></button></footer>
+      {activeVideo && (
+        <div className="mova-video-modal-backdrop" onClick={() => setActiveVideo(null)}>
+          <section className="mova-video-modal" role="dialog" aria-modal="true" aria-label={`Vídeos de ${activeVideo.title}`} onClick={(event) => event.stopPropagation()}>
+            <button className="mova-video-modal-close" type="button" onClick={() => setActiveVideo(null)} aria-label="Fechar vídeo"><X size={20} /></button>
+            <p className="modal-kicker">PORTFÓLIO MOVA</p>
+            <h3>{activeVideo.title}</h3>
+            <video controls playsInline preload="metadata" poster="/images/mova-video-poster.jpg">
+              <source src={activeVideo.src} type="video/mp4" />
+              Seu navegador não suporta vídeo HTML5.
+            </video>
+            <small>Adicione o vídeo correspondente na pasta public/videos.</small>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
