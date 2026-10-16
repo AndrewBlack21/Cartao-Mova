@@ -17,11 +17,7 @@ const WHATSAPP =
 const VIDEO_SRC = "/videos/mova-apresentacao.mp4";
 
 function BrandMark() {
-  return (
-    <span className="landing-brand-mark">
-      <img src="/public/assets/LogoMova.png"></img>
-    </span>
-  );
+  return <img className="landing-logo-image" src="/assets/LogoMova.png" alt="MOVA Storymaker & Videomaker" />;
 }
 
 function IntroVideo({ compact = false }) {
@@ -66,9 +62,6 @@ export default function LandingPage({ onOpenCard }) {
         <header className="landing-header">
           <a className="landing-logo" href="#inicio" aria-label="Mova início">
             <BrandMark />
-            <span>
-              MOVA<small>STORYMAKER & VIDEOMAKER</small>
-            </span>
           </a>
           <div className="landing-header-actions">
             <a className="landing-header-link" href="#portfolio">
@@ -142,8 +135,8 @@ export default function LandingPage({ onOpenCard }) {
         </div>
         <div className="landing-intro-visual">
           <img
-            src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1100&q=85"
-            alt="Profissional trabalhando com câmera em uma produção audiovisual"
+            src="/assets/kalyne.png"
+            alt="Kalyne, filmmaker da Mova"
             loading="lazy"
           />
           <span className="image-caption">
@@ -263,8 +256,8 @@ export default function LandingPage({ onOpenCard }) {
             rel="noreferrer"
           >
             <img
-              src="/public/assets/Jose.png"
-              alt="Retrato ilustrativo de profissional criativo"
+              src="/assets/jose.png"
+              alt="José Carllos, filmmaker da Mova"
               loading="lazy"
             />
             <span>01 / FILMMAKER</span>
@@ -280,8 +273,8 @@ export default function LandingPage({ onOpenCard }) {
             rel="noreferrer"
           >
             <img
-              src="/public/assets/Kalyne.png"
-              alt="Retrato ilustrativo de profissional criativa"
+              src="/assets/kalyne.png"
+              alt="Kalyne, filmmaker da Mova"
               loading="lazy"
             />
             <span>02 / FILMMAKER</span>
@@ -314,11 +307,8 @@ export default function LandingPage({ onOpenCard }) {
       </section>
 
       <footer className="landing-footer">
-        <a className="landing-logo" href="#inicio">
+        <a className="landing-logo" href="#inicio" aria-label="Mova início">
           <BrandMark />
-          <span>
-            MOVA<small>STORYMAKER & VIDEOMAKER</small>
-          </span>
         </a>
         <span>SANTOS · SP</span>
         <a

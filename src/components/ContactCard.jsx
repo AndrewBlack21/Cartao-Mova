@@ -324,12 +324,8 @@ export default function MovaVirtualCard({ onOpenLanding }) {
           <div className="hero-ring hero-ring-two" />
 
           <header className="hero-header">
-            <div className="mova-brand">
-              <CameraLogo className="brand-camera" />
-              <div>
-                <div className="brand-wordmark">MOVA</div>
-                <div className="brand-mini">STORYMAKER & VIDEOMAKER</div>
-              </div>
+            <div className="mova-brand mova-brand--image">
+              <img className="brand-logo-image" src="/assets/LogoMova.png" alt="MOVA Storymaker & Videomaker" />
             </div>
             <div className="hero-header-actions">
               <span className="hero-pill">CARTÃO DIGITAL</span>
