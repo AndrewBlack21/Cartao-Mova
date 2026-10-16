@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContactCard from "./components/ContactCard";
 import LandingPage from "./components/LandingPage";
 import "./landing.css";
@@ -16,9 +16,7 @@ function getInitialMode() {
 function shouldShowIntro() {
   if (typeof window === "undefined") return false;
   try {
-    if (window.sessionStorage.getItem(INTRO_SEEN_KEY)) return false;
-    window.sessionStorage.setItem(INTRO_SEEN_KEY, "true");
-    return true;
+    return !window.sessionStorage.getItem(INTRO_SEEN_KEY);
   } catch {
     return true;
   }
@@ -27,6 +25,15 @@ function shouldShowIntro() {
 export default function App() {
   const [mode, setMode] = useState(getInitialMode);
   const [showIntro, setShowIntro] = useState(shouldShowIntro);
+
+  useEffect(() => {
+    if (!showIntro) return;
+    try {
+      window.sessionStorage.setItem(INTRO_SEEN_KEY, "true");
+    } catch {
+      // A animação continua funcionando mesmo se o navegador bloquear o storage.
+    }
+  }, [showIntro]);
 
   function closeIntro() {
     setShowIntro(false);
