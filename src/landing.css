@@ -73,6 +73,7 @@
   min-height: 690px;
   position: relative;
   overflow: hidden;
+  --hero-card-w: clamp(300px, 32vw, 480px);
   padding: 30px clamp(22px, 7vw, 104px) 50px;
   background: #e9dccb;
   isolation: isolate;
@@ -119,7 +120,14 @@
     sans-serif;
   letter-spacing: 0.12em;
 }
-.landing-logo-image { display:block; width:clamp(150px, 19vw, 230px); height:auto; max-height:66px; object-fit:contain; object-position:left center; }
+.landing-logo-image {
+  display: block;
+  width: clamp(150px, 19vw, 230px);
+  height: auto;
+  max-height: 66px;
+  object-fit: contain;
+  object-position: left center;
+}
 .landing-brand-mark {
   display: grid;
   place-items: center;
@@ -210,17 +218,21 @@
   z-index: 0;
   top: 150px;
   right: 5%;
-  width: 34%;
-  height: 390px;
-  border-radius: 48% 48% 5px 5px;
-  background: url("/assets/Logo.png") center 28%/contain no-repeat;
+  width: var(--hero-card-w);
+  aspect-ratio: 353 / 335; /* mesma proporção do Logo.png */
+  /* topo em arco perfeito + base com cantos bem arredondados */
+  border-radius: calc(var(--hero-card-w) / 2) calc(var(--hero-card-w) / 2) 32px
+    32px;
+  background: #f0e6dc url("/assets/Logo.png") center / 88% auto no-repeat;
   box-shadow: 0 24px 70px rgba(46, 27, 19, 0.18);
 }
 .landing-hero-stamp {
   position: absolute;
   z-index: 2;
-  right: calc(5% - 25px);
-  bottom: 100px;
+  /* ancorado ao canto inferior esquerdo do card do logo, abaixo do texto */
+  --hero-card-w: clamp(300px, 32vw, 480px);
+  left: calc(95% - var(--hero-card-w) - 36px);
+  top: calc(150px + var(--hero-card-w) * 0.949 - 34px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -228,7 +240,7 @@
   padding: 22px 18px;
   color: var(--cream);
   background: var(--brown);
-  transform: rotate(5deg);
+  transform: rotate(-4deg);
 }
 .landing-hero-stamp span {
   font-size: 7px;
@@ -260,8 +272,9 @@
 }
 .landing-intro {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 50px 8%;
+  grid-template-columns: minmax(0, 620px) minmax(0, 560px);
+  justify-content: start;
+  gap: 50px clamp(40px, 5vw, 80px);
   background: var(--paper);
 }
 .landing-intro .landing-section-label {
@@ -294,10 +307,11 @@
 .landing-intro-visual img {
   display: block;
   width: 100%;
-  height: clamp(300px, 35vw, 440px);
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center 28%;
+  max-width: 560px;
+  height: auto;
+  aspect-ratio: 669 / 848; /* proporção real do Sobre.png */
+  object-fit: contain;
+  background: #f0e6dc;
   border-radius: 22px;
 }
 .image-caption {
@@ -568,7 +582,7 @@
     font-size: 9px;
   }
   .landing-hero {
-    min-height: 760px;
+    min-height: 0;
     padding: 22px 22px 35px;
   }
   .landing-hero-content {
@@ -576,19 +590,6 @@
   }
   .landing-hero h1 {
     font-size: clamp(53px, 12vw, 88px);
-  }
-  .landing-hero-image {
-    top: auto;
-    bottom: 0;
-    right: 0;
-    width: 47%;
-    height: 290px;
-    opacity: 0.88;
-  }
-  .landing-hero-stamp {
-    right: 37%;
-    bottom: 45px;
-    padding: 14px;
   }
   .landing-hero-bottom {
     align-items: start;
@@ -609,7 +610,8 @@
     grid-column: auto;
   }
   .landing-intro-visual img {
-    height: 300px;
+    max-width: 440px;
+    margin: 0 auto;
   }
   .landing-work-heading {
     display: block;
@@ -688,14 +690,6 @@
   .landing-hero-bottom p {
     max-width: 270px;
     font-size: 11px;
-  }
-  .landing-hero-image {
-    width: 55%;
-    height: 240px;
-  }
-  .landing-hero-stamp {
-    right: 39%;
-    bottom: 30px;
   }
   .landing-services {
     grid-template-columns: 1fr;
@@ -887,27 +881,86 @@
   }
 }
 
-
 /* Intro cinematográfica da marca: aparece uma vez por sessão */
-.mova-intro-overlay { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; overflow:hidden; background:#f7f1e8; animation:movaIntroFadeIn .35s ease both; }
-.mova-intro-video { display:block; width:100%; height:100%; max-width:100vw; max-height:100dvh; object-fit:contain; background:#f7f1e8; }
-.mova-intro-skip { position:absolute; right:max(18px, env(safe-area-inset-right)); bottom:max(18px, env(safe-area-inset-bottom)); padding:11px 16px; border:1px solid rgba(46,27,19,.22); border-radius:999px; color:#2e1b13; background:rgba(247,241,232,.88); backdrop-filter:blur(10px); font:600 10px Poppins,sans-serif; cursor:pointer; transition:background .2s ease, transform .2s ease; }
-.mova-intro-skip:hover { background:#e4d6c4; transform:translateY(-1px); }
-@keyframes movaIntroFadeIn { from { opacity:0; } to { opacity:1; } }
-@media(prefers-reduced-motion:reduce) { .mova-intro-overlay { animation:none; } }
-.landing-logo-image { width:clamp(140px, 18vw, 220px); max-height:64px; }
-.landing-logo { letter-spacing:0; }
-.landing-footer .landing-logo-image { width:180px; max-height:56px; }
-@media(max-width:600px) {
-  .landing-logo-image { width:clamp(126px, 38vw, 168px); max-height:48px; }
-  .landing-footer .landing-logo-image { width:150px; }
+.mova-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #f7f1e8;
+  animation: movaIntroFadeIn 0.35s ease both;
 }
-
+.mova-intro-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100dvh;
+  object-fit: contain;
+  background: #f7f1e8;
+}
+.mova-intro-skip {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  padding: 11px 16px;
+  border: 1px solid rgba(46, 27, 19, 0.22);
+  border-radius: 999px;
+  color: #2e1b13;
+  background: rgba(247, 241, 232, 0.88);
+  backdrop-filter: blur(10px);
+  font:
+    600 10px Poppins,
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.mova-intro-skip:hover {
+  background: #e4d6c4;
+  transform: translateY(-1px);
+}
+@keyframes movaIntroFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mova-intro-overlay {
+    animation: none;
+  }
+}
+.landing-logo-image {
+  width: clamp(140px, 18vw, 220px);
+  max-height: 64px;
+}
+.landing-logo {
+  letter-spacing: 0;
+}
+.landing-footer .landing-logo-image {
+  width: 180px;
+  max-height: 56px;
+}
+@media (max-width: 600px) {
+  .landing-logo-image {
+    width: clamp(126px, 38vw, 168px);
+    max-height: 48px;
+  }
+  .landing-footer .landing-logo-image {
+    width: 150px;
+  }
+}
 
 /* Ajustes de composição do hero em telas pequenas */
 @media (max-width: 600px) {
   .landing-hero {
-    min-height: 790px;
+    min-height: 0;
     padding: 18px 18px 28px;
   }
   .landing-header {
@@ -938,13 +991,13 @@
     gap: 7px;
     margin-bottom: 18px;
     font-size: 7px;
-    letter-spacing: .15em;
+    letter-spacing: 0.15em;
   }
   .landing-hero h1 {
     max-width: 100%;
     font-size: clamp(43px, 11.2vw, 58px);
-    line-height: .91;
-    letter-spacing: -.045em;
+    line-height: 0.91;
+    letter-spacing: -0.045em;
     overflow-wrap: normal;
   }
   .landing-hero-bottom {
@@ -962,43 +1015,22 @@
     width: 42px;
     height: 42px;
   }
-  .landing-hero-image {
-    top: auto;
-    right: 5%;
-    bottom: 0;
-    width: 58%;
-    height: 275px;
-    border-radius: 0;
-    opacity: 1;
-    background-position: center center;
-    background-size: contain;
-    box-shadow: none;
-  }
-  .landing-hero-stamp {
-    right: auto;
-    left: 8%;
-    bottom: 62px;
-    max-width: 58%;
-    gap: 7px;
-    padding: 15px 13px;
-    transform: rotate(-4deg);
-  }
   .landing-hero-stamp strong {
     font-size: clamp(16px, 5vw, 21px);
   }
   .landing-intro-visual img {
     width: 100%;
+    max-width: none;
     height: auto;
-    max-height: 440px;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 669 / 848;
     object-fit: contain;
-    background: #f1e7da;
+    background: #f0e6dc;
     border-radius: 18px;
   }
 }
 @media (max-width: 380px) {
   .landing-hero {
-    min-height: 760px;
+    min-height: 0;
   }
   .landing-hero-content {
     margin-top: 48px;
@@ -1006,13 +1038,35 @@
   .landing-hero h1 {
     font-size: clamp(40px, 10.7vw, 46px);
   }
+}
+
+/* Hero mobile/tablet: logo entra no fluxo (sem o vazio no meio) */
+@media (max-width: 800px) {
+  .landing-hero {
+    min-height: 0;
+    padding-bottom: 28px;
+  }
   .landing-hero-image {
-    width: 62%;
-    height: 245px;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    width: min(64%, 320px);
+    margin: 28px 0 0 auto;
+    opacity: 1;
+    border-radius: 28px; /* cantos arredondados também no mobile */
+    box-shadow: 0 16px 40px rgba(46, 27, 19, 0.14);
   }
   .landing-hero-stamp {
-    left: 6%;
-    bottom: 54px;
-    padding: 12px 10px;
+    right: auto;
+    top: auto;
+    left: 3%;
+    bottom: 12px;
+    max-width: none;
+    padding: 14px 13px;
+    transform: rotate(-4deg);
+  }
+  .landing-hero-stamp strong {
+    font-size: clamp(16px, 5vw, 21px);
   }
 }
