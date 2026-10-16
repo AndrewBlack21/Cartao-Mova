@@ -213,9 +213,7 @@
   width: 34%;
   height: 390px;
   border-radius: 48% 48% 5px 5px;
-  background:
-    linear-gradient(0deg, rgba(46, 27, 19, 0.35), transparent 45%),
-    url("/assets/jose.png") center 28%/cover;
+  background: url("/assets/Logo.png") center 28%/contain no-repeat;
   box-shadow: 0 24px 70px rgba(46, 27, 19, 0.18);
 }
 .landing-hero-stamp {
@@ -903,4 +901,118 @@
 @media(max-width:600px) {
   .landing-logo-image { width:clamp(126px, 38vw, 168px); max-height:48px; }
   .landing-footer .landing-logo-image { width:150px; }
+}
+
+
+/* Ajustes de composição do hero em telas pequenas */
+@media (max-width: 600px) {
+  .landing-hero {
+    min-height: 790px;
+    padding: 18px 18px 28px;
+  }
+  .landing-header {
+    align-items: center;
+    gap: 8px;
+  }
+  .landing-logo-image {
+    width: clamp(112px, 35vw, 150px);
+    max-height: 44px;
+  }
+  .landing-header-actions {
+    gap: 6px;
+  }
+  .landing-header-link {
+    font-size: 8px;
+    gap: 4px;
+  }
+  .landing-mode-button {
+    min-height: 29px;
+    padding: 6px 8px;
+    font-size: 8px;
+  }
+  .landing-hero-content {
+    margin-top: 58px;
+    max-width: 100%;
+  }
+  .landing-hero .landing-kicker {
+    gap: 7px;
+    margin-bottom: 18px;
+    font-size: 7px;
+    letter-spacing: .15em;
+  }
+  .landing-hero h1 {
+    max-width: 100%;
+    font-size: clamp(43px, 11.2vw, 58px);
+    line-height: .91;
+    letter-spacing: -.045em;
+    overflow-wrap: normal;
+  }
+  .landing-hero-bottom {
+    max-width: 100%;
+    margin-top: 22px;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .landing-hero-bottom p {
+    max-width: calc(100% - 54px);
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  .landing-circle-link {
+    width: 42px;
+    height: 42px;
+  }
+  .landing-hero-image {
+    top: auto;
+    right: 5%;
+    bottom: 0;
+    width: 58%;
+    height: 275px;
+    border-radius: 0;
+    opacity: 1;
+    background-position: center center;
+    background-size: contain;
+    box-shadow: none;
+  }
+  .landing-hero-stamp {
+    right: auto;
+    left: 8%;
+    bottom: 62px;
+    max-width: 58%;
+    gap: 7px;
+    padding: 15px 13px;
+    transform: rotate(-4deg);
+  }
+  .landing-hero-stamp strong {
+    font-size: clamp(16px, 5vw, 21px);
+  }
+  .landing-intro-visual img {
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    background: #f1e7da;
+    border-radius: 18px;
+  }
+}
+@media (max-width: 380px) {
+  .landing-hero {
+    min-height: 760px;
+  }
+  .landing-hero-content {
+    margin-top: 48px;
+  }
+  .landing-hero h1 {
+    font-size: clamp(40px, 10.7vw, 46px);
+  }
+  .landing-hero-image {
+    width: 62%;
+    height: 245px;
+  }
+  .landing-hero-stamp {
+    left: 6%;
+    bottom: 54px;
+    padding: 12px 10px;
+  }
 }
