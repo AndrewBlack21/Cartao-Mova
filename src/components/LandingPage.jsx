@@ -135,8 +135,8 @@ export default function LandingPage({ onOpenCard }) {
         </div>
         <div className="landing-intro-visual">
           <img
-            src="/assets/kalyne.png"
-            alt="Kalyne, filmmaker da Mova"
+            src="/assets/Sobre.png"
+            alt="Quem somos — MOVA Storymaker & Videomaker"
             loading="lazy"
           />
           <span className="image-caption">
