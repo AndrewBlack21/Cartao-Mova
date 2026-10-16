@@ -397,3 +397,10 @@ a { color: inherit; }
   .mova-page { padding: 34px 20px; }
   .mova-shell { border-radius: 36px; }
 }
+
+
+.card-video-section { margin: 0 0 30px; padding: 16px; border: 1px solid var(--mova-border); border-radius: 20px; background: linear-gradient(145deg, rgba(255,255,255,.52), rgba(228,214,196,.35)); }
+.card-video-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; color:var(--mova-gold); font-size:8px; font-weight:700; letter-spacing:.18em; }
+.card-intro-video { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; background:#2E1B13; }
+.card-video-section p { margin:12px 0 5px; color:var(--mova-brown); font:600 21px/1.05 "Cormorant Garamond",Georgia,serif; }
+.card-video-section small { color:var(--mova-muted); font-size:8px; line-height:1.5; }
