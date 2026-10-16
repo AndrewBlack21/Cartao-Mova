@@ -304,8 +304,9 @@ function PhysicalCard() {
   );
 }
 
-export default function MovaVirtualCard() {
+export default function MovaVirtualCard({ onOpenLanding }) {
   const [showSave, setShowSave] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(null);
   const [view, setView] = useState("digital");
 
   return (
@@ -330,7 +331,10 @@ export default function MovaVirtualCard() {
                 <div className="brand-mini">STORYMAKER & VIDEOMAKER</div>
               </div>
             </div>
-            <span className="hero-pill">CARTÃO DIGITAL</span>
+            <div className="hero-header-actions">
+              <span className="hero-pill">CARTÃO DIGITAL</span>
+              <button className="mode-switch-inline" type="button" onClick={onOpenLanding}>Conheça a Mova <ChevronRight size={13} /></button>
+            </div>
           </header>
 
           <div className="hero-content">
@@ -372,19 +376,6 @@ export default function MovaVirtualCard() {
             </div>
           </div>
 
-          <section className="card-video-section" aria-label="Vídeo de apresentação da Mova">
-            <div className="card-video-heading">
-              <span>CONHEÇA A MOVA</span>
-              <Video size={16} />
-            </div>
-            <video className="card-intro-video" controls playsInline preload="metadata" poster="/images/mova-video-poster.jpg">
-              <source src="/videos/mova-apresentacao.mp4" type="video/mp4" />
-              Seu navegador não suporta vídeo HTML5.
-            </video>
-            <p>Um pouco do nosso olhar, processo criativo e paixão por contar histórias.</p>
-            <small>Adicione o arquivo em public/videos/mova-apresentacao.mp4.</small>
-          </section>
-
           <div className="section-heading">
             <span>01</span>
             <div>
@@ -395,7 +386,7 @@ export default function MovaVirtualCard() {
 
           <div className="services-grid">
             {SERVICES.map(({ title, description, icon: Icon }, index) => (
-              <article className="service-card" key={title}>
+              <button className="service-card service-card-button" type="button" key={title} onClick={() => setActiveVideo({ title, src: title === "Storymaker" ? "/videos/storymaker.mp4" : "/videos/videomaker.mp4" })}>
                 <div className="service-topline">
                   <span>0{index + 1}</span>
                   <Icon size={19} />
@@ -403,7 +394,8 @@ export default function MovaVirtualCard() {
                 <h4>{title}</h4>
                 <p>{description}</p>
                 <div className="service-accent" />
-              </article>
+                <span className="service-play-label"><Video size={12} /> Ver vídeos</span>
+              </button>
             ))}
           </div>
 
@@ -487,6 +479,21 @@ export default function MovaVirtualCard() {
           </footer>
         </section>
       </div>
+
+      {activeVideo && (
+        <div className="mova-video-modal-backdrop" onClick={() => setActiveVideo(null)}>
+          <section className="mova-video-modal" role="dialog" aria-modal="true" aria-label={`Vídeos de ${activeVideo.title}`} onClick={(event) => event.stopPropagation()}>
+            <button className="mova-video-modal-close" type="button" onClick={() => setActiveVideo(null)} aria-label="Fechar vídeo"><X size={20} /></button>
+            <p className="modal-kicker">PORTFÓLIO MOVA</p>
+            <h3>{activeVideo.title}</h3>
+            <video controls playsInline preload="metadata" poster="/images/mova-video-poster.jpg">
+              <source src={activeVideo.src} type="video/mp4" />
+              Seu navegador não suporta vídeo HTML5.
+            </video>
+            <small>Adicione o vídeo correspondente na pasta public/videos.</small>
+          </section>
+        </div>
+      )}
 
       {showSave && (
         <div className="save-modal-backdrop" onClick={() => setShowSave(false)}>
